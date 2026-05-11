@@ -1,0 +1,104 @@
+Exp. 2
+Algorithm for Caeser Cipher:
+1. In Ceaser Cipher each letter in the plaintext is replaced by a letter some fixed number of
+positions down the alphabet.
+2. For example, with a left shift of 3, D would be replaced by A, E would become B, and
+so on.
+3. The encryption can also be represented using modular arithmetic by first transforming
+the letters into numbers, according to the scheme, A = 0, B = 1, Z = 25.
+4. Encryption of a letter x by a shift n can be described mathematically as,
+En(x) = (x + n)mod26
+5. Decryption is performed similarly,
+Dn (x)=(x - n) mod26
+
+Algorithm for Substitution Cipher:
+1. A String of both lower and upper case letters, called Plain Text. An Integer denoting
+the required key.
+
+2. Create a list of all the characters.
+3. Create a dictionary to store the substitution for all characters.
+4. For each character, transform the given character as per the rule, depending on
+whether we’re encrypting or decrypting the text.
+5. Print the new string generated.
+
+Code Using Python:
+
+1. Caeser Cipher:
+def encrypt_text(plaintext,n):
+ans = ""
+# iterate over the given text
+for i in range(len(plaintext)):
+ch = plaintext[i]
+
+# check if space is there then simply add space
+if ch==" ":
+ans+=" "
+# check if a character is uppercase then encrypt it accordingly
+elif (ch.isupper()):
+ans += chr((ord(ch) + n-65) % 26 + 65)
+# check if a character is lowercase then encrypt it accordingly
+
+else:
+ans += chr((ord(ch) + n-97) % 26 + 97)
+
+return ans
+
+plaintext = "HELLO EVERYONE"
+n = 1
+print("Plain Text is : " + plaintext)
+print("Shift pattern is : " + str(n))
+
+print("Cipher Text is : " + encrypt_text(plaintext,n))
+
+2. Substitution cipher
+
+import string
+# A list containing all characters
+all_letters= string.ascii_letters
+"""
+create a dictionary to store the substitution
+for the given alphabet in the plain text
+based on the key
+"""
+dict1 = {}
+key = 4
+for i in range(len(all_letters)):
+dict1[all_letters[i]] = all_letters[(i+key)%len(all_letters)]
+plain_txt= "I am studying Data Encryption"
+cipher_txt=[]
+
+# loop to generate ciphertext
+for char in plain_txt:
+if char in all_letters:
+temp = dict1[char]
+cipher_txt.append(temp)
+else:
+temp =char
+cipher_txt.append(temp)
+
+cipher_txt= "".join(cipher_txt)
+print("Cipher Text is: ",cipher_txt)
+
+"""
+
+create a dictionary to store the substitution
+for the given alphabet in the cipher
+text based on the key
+"""
+
+dict2 = {}
+for i in range(len(all_letters)):
+dict2[all_letters[i]] = all_letters[(i-key)%(len(all_letters))]
+
+# loop to recover plain text
+decrypt_txt = []
+for char in cipher_txt:
+if char in all_letters:
+temp = dict2[char]
+decrypt_txt.append(temp)
+else:
+temp = char
+decrypt_txt.append(temp)
+
+decrypt_txt = "".join(decrypt_txt)
+print("Recovered plain text :", decrypt_txt)
