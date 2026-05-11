@@ -1,0 +1,29 @@
+Exp.4
+Algorithm:
+1. Read the image and convert to RGB
+2. Find the image size
+3. Convert message to binary
+4. Embed message to image
+
+Python code:
+from PIL import Image
+import stepic
+
+#ENCRYPTION
+
+original_img=Image.open(&#39;img1.jpg&#39;)
+
+encoded_img=stepic.encode(original_img,b&#39;Network
+
+Security&#39;)
+
+encoded_img.save(&#39;img2.png&#39;)
+
+encoded_img=Image.open(&#39;img2.png&#39;)
+
+encoded_img.show()
+
+#DECRYPTION
+
+decoded_img=stepic.decode(encoded_img)
+print(decoded_img)
