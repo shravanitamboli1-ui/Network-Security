@@ -1,0 +1,76 @@
+Exp.7
+
+import secrets
+import string
+
+
+def generate_password(length: int) -> str:
+    """
+    Generate a secure random password of given length.
+
+    The password will contain:
+    - At least one lowercase letter
+    - At least one uppercase letter
+    - At least one digit
+    - At least one special character
+
+    Args:
+        length (int): Desired length of the password (minimum 4)
+
+    Returns:
+        str: Generated secure password
+    """
+
+    if length < 4:
+        raise ValueError("Password length must be at least 4.")
+
+    # Character sets
+    lowercase = string.ascii_lowercase
+    uppercase = string.ascii_uppercase
+    digits = string.digits
+    special = string.punctuation
+
+    # Combine all characters
+    all_chars = lowercase + uppercase + digits + special
+
+    # Ensure password contains at least one of each type
+    password = [
+        secrets.choice(lowercase),
+        secrets.choice(uppercase),
+        secrets.choice(digits),
+        secrets.choice(special)
+    ]
+
+    # Fill remaining characters securely
+    password.extend(secrets.choice(all_chars) for _ in range(length - 4))
+
+    # Shuffle securely to remove pattern
+    secrets.SystemRandom().shuffle(password)
+
+    return ''.join(password)
+
+
+def main():
+    """
+    Main function to interact with the user and generate password.
+    """
+
+    print("=" * 50)
+    print("🔐 SECURE PASSWORD GENERATOR")
+    print("=" * 50)
+
+    while True:
+        try:
+            length = int(input("Enter desired password length (min 4): "))
+            password = generate_password(length)
+            break
+        except ValueError as e:
+            print(f"Error: {e}. Please try again.")
+
+    print("\n✅ Generated Password:")
+    print(password)
+    print("\n⚠️  Keep your password confidential and secure!")
+
+
+if __name__ == "__main__":
+    main()
