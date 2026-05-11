@@ -1,5 +1,6 @@
 # Network-Security
 Exp.1
+
 Algorithm:
 1. Read the string (for example Hello World)
 2. Find the length of the string and AND string with 127
